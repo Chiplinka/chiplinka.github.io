@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Token Transfer UI</title>
+    <title>Token</title>
     <script src="https://cdn.jsdelivr.net/npm/web3@1.5.3/dist/web3.min.js"></script>
 </head>
 <body>
-    <h1>Token Transfer UI</h1>
-    <p>Total Supply: <span id="totalSupply"></span></p>
+    <h1>Token</h1>
     <p>Your Balance: <span id="yourBalance"></span></p>
 	<button onclick="fetchBalances()">Refresh Balances</button>
     <table>
@@ -171,10 +170,8 @@
 		});
 
 		async function updateUI(userAddress) {
-			const totalSupply = await contract.methods.supply().call();
 			const yourBalance = await contract.methods.balance(userAddress).call();
 
-			document.getElementById('totalSupply').textContent = totalSupply;
 			document.getElementById('yourBalance').textContent = yourBalance;
 		}
 		
