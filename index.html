@@ -1,230 +1,468 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Token</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casinno</title>
+    <style>
+        .dollarGif {
+            position: absolute;
+            width: 80px;
+            height: auto;
+        }
+
+        #dollarGifLeft {
+            left: 50px;
+            top: 150px;
+            width: 4%;
+        }
+
+        #dollarGifRight {
+            right: 50px;
+            top: 300px;
+            width: 5%;
+        }
+
+        #dollarGifTop {
+            left: 50%;
+            top: 10%;
+            width: 5%;
+        }
+
+        #dollarGifBottom {
+            right: 100px;
+            bottom: 100px;
+            width: 5%;
+        }
+        #dollarGifSmoke {
+            left: 10px;
+            top: 500px; 
+            width: 15%;
+            
+        }
+        /* Dashboard styles */
+        #dashboard {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+
+        body {
+            /* 'Comic Sans MS' */
+        font-family: 'Times New Roman', cursive;
+        text-align: center;
+        margin: 20px;
+        background-color: #1a1a1a; /* Dark background color */
+        color: #ffffff; /* Light text color */
+        overflow: scroll;
+    }
+
+    /* Rest of your existing styles... */
+
+    /* Additional 90s-style modifications */
+    #container {
+        background-color: #333333; /* Dark background color */
+    }
+
+    h1 {
+        color: #ff3399; /* Neon pink */
+        text-shadow: 2px 2px 4px #6600cc; /* Text shadow for a 3D effect */
+    }
+
+    button {
+        background-color: #00cc00; /* Neon green */
+    }
+
+    /* Spacer GIF */
+    .spacer {
+        height: 20px;
+        background: url("https://web.archive.org/web/20091028030835if_/http://www.geocities.com/rjwarren_stm/fox.gif") repeat-x;
+    }
+
+    /* Scrolling Marquee */
+    marquee {
+        color: #ffffff; /* Light text color */
+        font-size: 18px;
+        font-weight: bold;
+        padding: 10px;
+        background-color: #1a1a1a; /* Dark background color */
+    }
+
+    /* Dollar bill GIFs */
+    .dollarGif {
+        position: absolute;
+        width: 50%;
+        height: auto;
+    }
+
+    /* Dashboard styles */
+    #dashboard {
+        margin-top: 30px;
+        padding: 15px;
+        background-color: #333333; /* Dark background color */
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.1); /* Light box shadow */
+    }
+
+    #dashboard h2 {
+        color: #ffffff; /* Light text color */
+        margin-bottom: 10px;
+    }
+    .dashboard {
+            width: 70%;
+            margin: auto;
+        }
+
+        .transaction-list {
+            list-style-type: none;
+            padding: 0;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .transaction-item {
+            border: 1px solid #ccc;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: "blue";
+        }
+
+        .transaction-item:hover {
+            background-color: #6600cc;
+        }
+
+        .transaction-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .transaction-details {
+            font-size: 14px;
+            color: "white";
+        }
+    </style>
     <script src="https://cdn.jsdelivr.net/npm/web3@1.5.3/dist/web3.min.js"></script>
 </head>
 <body>
-    <h1>Token</h1>
-    <p>Your Balance: <span id="yourBalance"></span></p>
-	<button onclick="fetchBalances()">Refresh Balances</button>
-    <table>
-        <tr>
-            <th>User</th>
-            <th>Balance</th>
-        </tr>
-        <tbody id="balancesTable"></tbody>
-    </table>
-    <input type="text" id="recipient" placeholder="Recipient Address">
-    <input type="number" id="amount" placeholder="Amount">
-    <button onclick="transferTokens()">Transfer</button>
+    <div id="container">
+        <!-- Spacer GIF -->
+        <!-- <div class="spacer"></div> -->
+        <img id="bottomGif1" src="https://web.archive.org/web/20091023062842im_/http://www.geocities.com:80/Athens/Forum/8237/Welcome/DollarBanner.gif" alt="Bottom Dollar GIF">
+        <img id="bottomGif2" src="https://web.archive.org/web/20091023062842im_/http://www.geocities.com:80/Athens/Forum/8237/Welcome/DollarBanner.gif" alt="Bottom Dollar GIF">
+        <!-- Scrolling Marquee -->
+        <marquee behavior="scroll" direction="left">Welcome to Casinno - Feeling Lucky? Place your bets now!</marquee>
 
+        <!-- Existing content -->
+
+        <!-- Dollar bill GIFs -->
+        <img id="dollarGifLeft" class="dollarGif" src="https://web.archive.org/web/20091026035618/http://www.geocities.com/haussle/DOLLAR-02.GIF" alt="Dollar GIF Left">
+        <img id="dollarGifRight" class="dollarGif" src="https://web.archive.org/web/20090728004237/http://www.geocities.com/hamba66/Images/dollar1.gif" alt="Dollar GIF Right">
+        <img id="dollarGifBottom" class="dollarGif" src="https://web.archive.org/web/20090831010248/http://www.geocities.com/manetane1/dollar.gif" alt="Dollar GIF Bottom">
+
+        <!-- Rest of your existing content -->
+        <div id="menu"> 
+            <h1>Casinno</h1>
+            <label for="bet">Choose a bet:</label>
+            <select id="bet">
+                <option value="black">Black</option>
+                <option value="red">Red</option>
+                <option value="zero">Zero</option>
+            </select>
+            <br>
+
+            <label for="bidAmount">Enter bid amount:</label>
+            <input type="number" id="bidAmount" min="0" step="1", placeholder="0.000000000000000001">
+            <br>
+
+            <button onclick="placeBet()">Place Bet</button>
+            <div id="resultField"></div>
+        </div> 
+        <div id="result"></div>
+        <img id="dollarGifLeft" class="dollarGif" src="https://web.archive.org/web/20091026035618/http://www.geocities.com/haussle/DOLLAR-02.GIF" alt="Dollar GIF Left">
+        <img id="dollarGifRight" class="dollarGif" src="https://web.archive.org/web/20090728004237/http://www.geocities.com/hamba66/Images/dollar1.gif" alt="Dollar GIF Right">
+        <img id="dollarGif" src="https://media.tenor.com/dt7n-dYrta8AAAAC/sputnik.gif" alt="Dollar GIF">
+
+        <img id="dollarGifSmoke" class="dollarGif" src="https://web.archive.org/web/20091027144228/http://geocities.com/WallStreet/Floor/5593/dollarc.gif" alt="Dollar GIF Left">
+
+        <!-- Dashboard section -->
+        <div class="dashboard">
+            <h1>Transaction Dashboard</h1>
+            <ul id="transactionList" class="transaction-list">
+                <!-- Transactions will be appended here using JavaScript -->
+            </ul>
+        </div>
+
+       
+        <!-- Spacer GIF -->
+        <!-- <div class="spacer"></div> -->
+
+        <!-- Scrolling Marquee -->
+        <marquee behavior="scroll" direction="left">Place your bets and win big at Casinno!</marquee>
+         <!-- Bottom GIF -->
+         <img id="bottomGif1" src="https://web.archive.org/web/20091023062842im_/http://www.geocities.com:80/Athens/Forum/8237/Welcome/DollarBanner.gif" alt="Bottom Dollar GIF">
+         <img id="bottomGif2" src="https://web.archive.org/web/20091023062842im_/http://www.geocities.com:80/Athens/Forum/8237/Welcome/DollarBanner.gif" alt="Bottom Dollar GIF">
+   
+    </div>
     <script>
-        if (window.ethereum) {
+        const mapping = {"black": 1, "red": 2, "zero": 3};
+        var userAddress;
+        var contract;
+        var showRes = 0;
+        window.addEventListener('load', async function() {
+            resultField.textContent = "Result: bet your money";
+            resultField.style.color = "grey";
+
+            if (window.ethereum) {
 			window.web3 = new Web3(ethereum);
 			try {
-				ethereum.enable();
+				await ethereum.enable();
 			} catch (error) {
-
+                console.log("Error");
 			}
-		} else if (window.web3) {
-			window.web3 = new Web3(web3.currentProvider);
-		} else {
-			console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
-		}
-
-		const contractABI = [
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "Transfer",
-		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "transfer",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"stateMutability": "payable",
-		"type": "constructor"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "balance",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getUserAddresses",
-		"outputs": [
-			{
-				"internalType": "address[]",
-				"name": "",
-				"type": "address[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "name",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "supply",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "symbol",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	}
+            } else if (window.web3) {
+                window.web3 = new Web3(web3.currentProvider);
+            } else {
+                console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+            }
+            const contractABI = [
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "subscriptionId",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "have",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "want",
+        "type": "address"
+      }
+    ],
+    "name": "OnlyCoordinatorCanFulfill",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum Casinno.BetOption",
+        "name": "option",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "BetPlaced",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum Casinno.BetResult",
+        "name": "result",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "BetResulted",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "enum Casinno.BetOption",
+        "name": "_option",
+        "type": "uint8"
+      }
+    ],
+    "name": "placeBet",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "requestId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "randomWords",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "rawFulfillRandomWords",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "withdraw",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "stateMutability": "payable",
+    "type": "receive"
+  }
 ];
 
-		const contractAddress = '0xd9145CCE52D386f254917e481eB44e9943F39138';
+            const contractAddress = "0x680eF8fEd29C095A68496F815BD7848196d7E820";
+            contract = new web3.eth.Contract(contractABI, contractAddress);
+            
+            onInit();
+            eventSubscribe();
+        });
 
-		contract = new web3.eth.Contract(contractABI, contractAddress);
-		
-		console.log(web3.eth.getAccounts())
-		console.log(contract.methods)
-		
-		//console.log(contract.methods.balance.call())
+        async function onInit() {
+            await window.ethereum.enable();
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            const account = accounts[0];
+            userAddress = account;
+            console.log("ALO eb", account)
+            window.ethereum.on('accountsChanged', function (accounts) {
+                // Time to reload your interface with accounts[0]!
+                console.log(accounts[0])
+            });
+        }
 
-		web3.eth.getAccounts().then(accounts => {
-			const userAddress = accounts[0];
-			updateUI(userAddress);
-		});
+        async function placeBet(){
+    		const bet_amount = document.getElementById('bidAmount').value;
+    		const bet_color = document.getElementById('bet').value;
 
-		async function updateUI(userAddress) {
-			const yourBalance = await contract.methods.balance(userAddress).call();
+            console.log(bet_amount, bet_color)
+            
+            const overrides = {from: userAddress, value: web3.utils.toWei(bet_amount.toString(), 'ether')}
+            const result = await contract.methods.placeBet(mapping[bet_color]).send(overrides);
 
-			document.getElementById('yourBalance').textContent = yourBalance;
-		}
-		
-        async function transferTokens() {
-			const recipient = document.getElementById('recipient').value;
-			const amount = document.getElementById('amount').value;
+            console.log('Transaction Result:', result);
+        }
 
-			web3.eth.getAccounts().then(accounts => {
-				const userAddress = accounts[0];
-				contract.methods.transfer(recipient, amount).send({ from: userAddress })
-					.on('transactionHash', () => {
-						alert('Transaction sent. Please wait for confirmation.');
-					})
-					.on('receipt', () => {
-						alert('Tokens transferred successfully!');
-						updateUI(userAddress);
-					})
-					.on('error', (error) => {
-						console.error(error);
-						alert('Failed to transfer tokens');
-					});
-			});
-		}
-		
-        async function fetchBalances() {
-            const userAddresses = await contract.methods.getUserAddresses().call();
-            const balancesTable = document.getElementById('balancesTable');
-            balancesTable.innerHTML = '';
 
-            for (const address of userAddresses) {
-                const balance = await contract.methods.balance(address).call();
+        function eventSubscribe() {
+            let options = {
+                filter: {
+                    value: [],
+                },
+                fromBlock: 0
+            };
+            contract.events.BetPlaced(options)
+            .on('data', event => {
+                console.log(event)
+                console.log(event.returnValues.user.toLowerCase(), userAddress.toLowerCase())
 
-                const row = document.createElement('tr');
-                const userCell = document.createElement('td');
-                userCell.textContent = address;
-                const balanceCell = document.createElement('td');
-                balanceCell.textContent = balance;
-                row.appendChild(userCell);
-                row.appendChild(balanceCell);
-                balancesTable.appendChild(row);
-            }
-			
-			const address = "0xD8C7978Be2A06F5752cB727fB3B7831B70bF394d";
-			const balance = await contract.methods.balance(address).call();
+                if(event.returnValues.user.toLowerCase() == userAddress.toLowerCase()){
+                    resultField.textContent = "Result: waiting for response";
+                    resultField.style.color = "grey";
+                }
+            })
+            .on('changed', changed => console.log(changed))
+            .on('error', err => {throw err})
+            .on('connected', str => console.log(str))
 
-			const row = document.createElement('tr');
-			const userCell = document.createElement('td');
-			userCell.textContent = address;
-			const balanceCell = document.createElement('td');
-			balanceCell.textContent = balance;
-			row.appendChild(userCell);
-			row.appendChild(balanceCell);
-			balancesTable.appendChild(row);
+            contract.events.BetResulted(options)
+            .on('data', event => {
+                console.log(event)
+                console.log(event.returnValues)
+                console.log(event.returnValues.result)
+
+                console.log(event.returnValues.user.toLowerCase(), userAddress.toLowerCase(), event.returnValues.user.toLowerCase() == userAddress.toLowerCase())
+
+
+                if(event.returnValues.user.toLowerCase() == userAddress.toLowerCase()){
+                    var resultField = document.getElementById("resultField");
+                    var value = new Number(event.returnValues.amount / (10**18))
+                    
+                    if (event.returnValues.result == "1") {
+                        resultField.textContent = "Result: you won " + value.toFixed(18);
+                        resultField.style.color = "green";
+                    } else {
+                        resultField.textContent = "Result: you lost your bet";
+                        resultField.style.color = "red";
+                    }
+                }
+                var listItem = document.createElement("li");
+                listItem.className = "transaction-item";
+
+                var title = document.createElement("div");
+                title.className = "transaction-title";
+                title.textContent = event.returnValues.user;
+
+                var details = document.createElement("div");
+                details.className = "transaction-details";
+                var value = new Number(event.returnValues.amount / (10**18))
+                details.textContent = "Amount: " + value.toFixed(18);
+                listItem.appendChild(title);
+                listItem.appendChild(details);
+
+                details = document.createElement("div");
+                details.className = "transaction-details";
+
+                if(event.returnValues.result == "1"){
+                    details.textContent = "Result: win";
+                    details.style.color = "green";
+                } else {
+                    details.textContent = "Result: lost";
+                    details.style.color = "red";
+
+                }
+                listItem.appendChild(details);
+
+                transactionList.insertBefore(listItem, transactionList.firstChild);
+
+            })
+            .on('changed', changed => console.log(changed))
+            .on('error', err => {throw err})
+            .on('connected', str => console.log(str))
         }
     </script>
 </body>
